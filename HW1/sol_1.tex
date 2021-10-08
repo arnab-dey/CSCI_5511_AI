@@ -1,0 +1,45 @@
+%----------------------------------------------------------------------------------------
+%	SOLUTION 1.a
+%----------------------------------------------------------------------------------------
+\subsection*{State Representation}
+I am using a number system with base of $9$ to represent my state. Therefore, the state '123804765' would be encoded to as follows:
+\begin{align*}
+	\text{encoded\_state} &= 1\times 9^8 + 2 \times 9^7 + 3 \times 9^6 + 8 \times 9^5 + 0 \times 9^4 + 4 \times 9^3 + 7 \times 9^2 + 6 \times 9^1 + 5 \times 9^0\\
+	&= 277857180
+\end{align*}
+Similarly I perform decoding as per the regular process of conversion to decimal from a number system with base $9$.
+
+The code snippets for encoding and decoding are implemented as static methods of \textit{Problem} class in \textit{utils.py} (see \textit{encode\_state()} and \textit{decode\_state()}). 
+%----------------------------------------------------------------------------------------
+%	SOLUTION 1.b
+%----------------------------------------------------------------------------------------
+\subsection*{Visualization}
+The code to visualize the encoded state as a 8-Puzzle board is implemented in \textit{visualize()} function in \textit{search.py}.
+%----------------------------------------------------------------------------------------
+%	SOLUTION 1.c
+%----------------------------------------------------------------------------------------
+\subsection*{Problem Setup}
+I have followed the AIMA book's structure to build the \textit{Problem}, \textit{Node} classes. These implementations can be found in \textit{utils.py}.
+Note that, the direction of actions are slightly different from how the book describes. There are total $4$ different actions:
+\begin{enumerate}
+	\item 'U': A tile is moved up into the blank space
+	\item 'D': A tile is moved down into the blank space
+	\item 'L': A tile is moved left into the blank space
+	\item 'R': A tile is moved right into the blank space
+\end{enumerate} 
+%----------------------------------------------------------------------------------------
+%	SOLUTION 1.d
+%----------------------------------------------------------------------------------------
+\subsection*{Uninformed Search}
+All the search methods are present in \textit{search.py}. For a 8-Puzzle board the state space has $9!$ possible states.
+
+I have implemented a single function \textit{depth\_limited\_search()} which takes an instance of \textit{Problem} class and a limit (integer) as arguments. When limit argument is set to \textit{None}, it performs a depth first search and when limit is some positive integer, it performs depth limited search with depth limit set to that positive integer.
+
+Note that, the canvas assignment page says the \textit{iterative\_deepening()} takes \textit{state} as an argument, however, I have used a instance of \textit{Problem} class as an argument. Literally both are equivalent but I felt keeping \textit{Problem} instance outside of \textit{iterative\_deepening()} is better as it enables to define the goal state also outside the search method. Please let me know if you have any questions.
+
+For iterative deepening I am using a maximum limit of $80$.
+%----------------------------------------------------------------------------------------
+%	SOLUTION 1.e
+%----------------------------------------------------------------------------------------
+\subsection*{Informed Search}
+The heuristic functions for \textit{num\_wrong\_tiles()} and \textit{manhattan\_distance()} are implemented inside the \textit{Problem} class in \textit{utils.py}. For A$^*$ search, I have adapted the implementation of \textit{PriorityQueue} from the AIMA book's implementation.

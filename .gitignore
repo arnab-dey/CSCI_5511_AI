@@ -127,3 +127,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Pycharm stuffs
+.idea
+
+# Latex generated files
+**/*.aux
+**/*.log
+**/*.out
+**/*.*.gz
