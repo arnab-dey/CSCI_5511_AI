@@ -1,0 +1,59 @@
+%----------------------------------------------------------------------------------------
+%	SOLUTION 1.a
+%----------------------------------------------------------------------------------------
+\subsection*{Random Player}
+The \textit{RandomPlayer} class is implemented in \textit{othelloplayer.py} file. The instance of \textit{RandomPlayer} randomly chooses one of the possible legal moves from a given state. If there is any possible move, it surely chooses one of them otherwise skips it's turn.
+%----------------------------------------------------------------------------------------
+%	SOLUTION 1.b
+%----------------------------------------------------------------------------------------
+\subsection*{Utility Function}
+The utility function of Othello game can be determined by evaluating the following heuristics:
+\begin{enumerate}
+	\item Coin Parity
+	\item Stability
+	\item Positional Strategy
+	\item Mobility
+	\item Corners Capture
+	\item Terminal State
+\end{enumerate}
+We give a brief description of the above heuristics in subsequent sections.
+\subsubsection*{Coin Parity}
+Coin parity computes the difference in coins between the player and its opponent. The heuristic value can be calculated as follows:
+\begin{align*}
+	\text{Coin Parity} = \frac{K_1(\text{no. of player coins on the board}-\text{no. of opponent coins on the board})}{\text{no. of player coins on the board}+\text{no. of opponent coins on the board}},
+\end{align*}
+where $K_1$ is a positive constant.
+
+Coin parity enables the player to take those moves which result into states having more number of player coins on the board.
+\subsubsection*{Stability}
+Coin parity does not capture the scenario where in the immediate next step taken by the opponent can alter the number of player coins drastically. Stable coins are the coins which cannot be flipped at any point in time in the game from the given state. Unstable coins are the coins which can be flipped at the very next move by the opponent. We also consider semi-stable coins which could potentially be flipped at some point in future but not in the immediate next move by the opponent. Stable coins have a positive utility, unstable coins have a negative utility and the semi-stable coins have zero utility. Stability can be calculated as follows:
+\begin{align*}
+	\text{Stability} = \frac{K_2(\text{player stability}-\text{opponent stability})}{\text{player stability}+\text{opponent stability}},
+\end{align*}
+where $K_2$ is a positive constant.
+\subsubsection*{Positional Strategy}
+Here we assign static weights to each positions on the board. Each position on the board has a notion of stability given the position of other player coins on the board. Player coin at a certain position adds the corresponding static value to the positional utility, otherwise if the opponent has a coin at that position, static weight of that position is subtracted from the player positional utility.
+\subsubsection*{Mobility}
+The goal of mobility is to restrict opponent moves while mobilizing player moves. It can be calculated as follows:
+\begin{align*}
+	\text{Mobility} = \frac{K_3(\text{no. of possible player moves}-\text{no. of possible opponent moves})}{\text{no. of possible player moves}+\text{no. of possible opponent moves}},
+\end{align*}
+where $K_3$ is a positive constant.
+
+Mobility can consume additional processor time. Therefore, by default I have disabled mobility in my code.
+\subsubsection*{Corners Capture}
+Coins at the corner cannot be flipped. Therefore, a high positive utility is give to a player coin that is at any corner. If opponent coin is there at any corner, a high negative value is added to the player utility thus discouraging moving to such states.
+\subsubsection*{Terminal State}
+If a terminal state is encountered where the player wins, a high positive utility is given to the player. If the player looses in that terminal state, a high negative value is given to the player.
+
+For my code, I have used coin parity, Positional strategy, corners captured and terminal state. Mobility is also implemented, however, by default I have disabled it.
+%----------------------------------------------------------------------------------------
+%	SOLUTION 1.c
+%----------------------------------------------------------------------------------------
+\subsection*{Minimax Agent}
+The \textit{MinimaxPlayer} class is implemented in \textit{othelloplayer.py} file.
+%----------------------------------------------------------------------------------------
+%	SOLUTION 1.d
+%----------------------------------------------------------------------------------------
+\subsection*{Alpha-Beta Agent}
+The \textit{Alphabeta} class is implemented in \textit{othelloplayer.py} file.
